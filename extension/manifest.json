@@ -27,7 +27,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.google.com/*"
+        "*://github.ubc.ca/*commit/*"
       ],
       "css": [
         "src/inject/inject.css"
@@ -35,7 +35,7 @@
     },
     {
       "matches": [
-        "https://www.google.com/*"
+        "*://github.ubc.ca/*commit/*"
       ],
       "js": [
         "src/inject/inject.js"
