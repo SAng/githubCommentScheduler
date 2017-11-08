@@ -17,6 +17,16 @@ document.getElementById("all_commit_comments").setAttribute("class", "penis");
       element.appendChild(button);
     }
 
+    var s = document.createElement('script');
+    // TODO: add "script.js" to web_accessible_resources in manifest.json
+    s.src = chrome.extension.getURL('src/functions/comment.js');
+    s.onload = function() {
+        this.remove();
+    };
+    (document.head || document.documentElement).appendChild(s);
+
+
+
 	}
 	}, 10);
 });
