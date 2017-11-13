@@ -44,6 +44,6 @@
     }
   ],
   "web_accessible_resources": [
-    "src/functions/*"
+    "src/inject/functions/*"
   ]
 }
