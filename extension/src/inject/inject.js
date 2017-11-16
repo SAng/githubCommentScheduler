@@ -6,8 +6,9 @@ chrome.extension.sendMessage({}, function(response) {
     // var input = document.getElementById("all_commit_comments").getElementsByClassName("form-actions");
 
     var button = document.createElement("button");
-    button.setAttribute("class", "btn btn-primary disabled");
+    button.setAttribute("class", "btn btn-primary");
     button.setAttribute("id", "delay_comment_extension_button");
+    button.setAttribute("data", "seconds", -10);
     button.innerHTML = "Delay Comment";
 
     // input[0].appendChild(button);
@@ -26,10 +27,39 @@ chrome.extension.sendMessage({}, function(response) {
     // (document.head || document.documentElement).appendChild(s);
     $('#delay_comment_extension_button').on('click', function(e) {
       e.preventDefault();
-      console.log("hi from comment function");
+      $(this).data("seconds", 4);
+
 
     })
 
+
+
+        // update times
+    window.setInterval(function(){
+        // get the corresponding table rows
+        if ($('#delay_comment_extension_button').data("seconds") > -5) {
+        countdown($("#delay_comment_extension_button"));
+        console.log($('#delay_comment_extension_button').data("seconds"))
+    }
+
+    }, 1000);
+
+function countdown(timer) {
+    let time = $(timer).data("seconds");
+    time--;
+    $(timer).data("seconds", time);
+    if (time < 0) {
+        console.log("hi")
+        $(timer).data("seconds", 100);
+        let element = document.evaluate( '//*[@id="all_commit_comments"]/div[3]/form/div[2]/div[2]/button' ,document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null ).singleNodeValue;
+        if (element != null) {
+          element.click();
+        }
+
+
+    }
+    $(timer).data("seconds", time);
+}
 
 	}
 	}, 10);
