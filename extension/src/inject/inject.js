@@ -27,8 +27,32 @@ chrome.extension.sendMessage({}, function(response) {
     // (document.head || document.documentElement).appendChild(s);
     $('#delay_comment_extension_button').on('click', function(e) {
       e.preventDefault();
-      $(this).data("seconds", 4);
 
+      if (!($(this).is(".active"))) {
+          let timer = document.createElement("input");
+          timer.setAttribute("class", "timer_input");
+          timer.setAttribute("id", "delay_comment_extension_input");
+          timer.placeholder = "Enter time in Seconds";
+          $(this).parent().append(timer);
+
+          let timeLeft = document.createElement("div");
+          timeLeft.setAttribute("class", "timer_time_left");
+          timeLeft.setAttribute("id", "delay_comment_extension_time_left");
+          $(this).parent().append(timeLeft);
+          this.setAttribute("class", "btn btn-primary active")
+      } else {
+        time = $('#delay_comment_extension_input').val();
+        if (!(isNaN(time))) {
+            $(this).data("seconds", parseInt(time, 10));
+            $("#delay_comment_extension_time_left").html(parseInt(time, 10))
+        } else {
+            alert("please enter a valid time")
+            console.log(time)
+            console.log(typeof(time))
+        }
+      }
+
+      // $(this).data("seconds", 4);
 
     })
 
@@ -47,6 +71,7 @@ chrome.extension.sendMessage({}, function(response) {
 function countdown(timer) {
     let time = $(timer).data("seconds");
     time--;
+    $("#delay_comment_extension_time_left").html(time)
     $(timer).data("seconds", time);
     if (time < 0) {
         console.log("hi")
