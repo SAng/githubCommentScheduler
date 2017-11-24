@@ -27,8 +27,29 @@ chrome.extension.sendMessage({}, function(response) {
     // (document.head || document.documentElement).appendChild(s);
     $('#delay_comment_extension_button').on('click', function(e) {
       e.preventDefault();
+      let originalbutton = $(this);
 
       if (!($(this).is(".active"))) {
+
+
+          let cancel = document.createElement("button");
+          cancel.setAttribute("class", "timer_cancel");
+          cancel.setAttribute("id", "delay_comment_extension_cancel");
+          cancel.innerHTML = "cancel";
+          $(this).parent().append(cancel);
+
+          $('#delay_comment_extension_cancel').on('click', function(e) {
+            e.preventDefault();
+
+            originalbutton.toggleClass("active");
+            $('#delay_comment_extension_input').remove();
+            $('#delay_comment_extension_time_left').remove();
+            $(this).remove();
+
+
+          })
+
+
           let timer = document.createElement("input");
           timer.setAttribute("class", "timer_input");
           timer.setAttribute("id", "delay_comment_extension_input");
@@ -52,7 +73,7 @@ chrome.extension.sendMessage({}, function(response) {
         }
       }
 
-      // $(this).data("seconds", 4);
+
 
     })
 
